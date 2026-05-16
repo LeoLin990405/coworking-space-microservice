@@ -1,0 +1,32 @@
+version: 0.2
+
+env:
+  variables:
+    IMAGE_REPO_NAME: coworking-analytics
+    IMAGE_TAG: 1.0.0
+
+phases:
+  pre_build:
+    commands:
+      - echo "Logging in to Amazon ECR..."
+      - AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
+      - ECR_URI="${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}"
+      - aws ecr describe-repositories --repository-names "${IMAGE_REPO_NAME}" || aws ecr create-repository --repository-name "${IMAGE_REPO_NAME}"
+      - aws ecr get-login-password --region "${AWS_DEFAULT_REGION}" | docker login --username AWS --password-stdin "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com"
+  build:
+    commands:
+      - echo "Building Docker image ${ECR_URI}:${IMAGE_TAG}..."
+      - docker build -t "${IMAGE_REPO_NAME}:${IMAGE_TAG}" analytics
+      - docker tag "${IMAGE_REPO_NAME}:${IMAGE_TAG}" "${ECR_URI}:${IMAGE_TAG}"
+      - docker tag "${IMAGE_REPO_NAME}:${IMAGE_TAG}" "${ECR_URI}:latest"
+  post_build:
+    commands:
+      - echo "Pushing Docker images..."
+      - docker push "${ECR_URI}:${IMAGE_TAG}"
+      - docker push "${ECR_URI}:latest"
+      - printf '[{"name":"coworking","imageUri":"%s"}]' "${ECR_URI}:${IMAGE_TAG}" > imageDetail.json
+      - echo "Image pushed to ${ECR_URI}:${IMAGE_TAG}"
+
+artifacts:
+  files:
+    - imageDetail.json

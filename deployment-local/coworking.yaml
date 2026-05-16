@@ -32,8 +32,17 @@ spec:
       containers:
       - name: coworking
         # Locally hosted docker image
-        image: <DOCKER_IMAGE_NAME>:<IMAGE_TAG>
+        image: coworking-analytics:1.0.0
         imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 5153
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+          limits:
+            cpu: "500m"
+            memory: "512Mi"
         livenessProbe:
           httpGet:
             path: /health_check
@@ -48,11 +57,11 @@ spec:
           timeoutSeconds: 5
         envFrom:
         - configMapRef:
-            name: <NAME OF THE ConfigMap>
+            name: coworking-config
         env:
         - name: DB_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: <NAME OF THE Secret>
-              key: <THE KEY FROM Secret WHICH has THE ENCODED PASSWORD>
+              name: coworking-secret
+              key: DB_PASSWORD
       restartPolicy: Always

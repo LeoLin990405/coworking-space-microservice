@@ -1,0 +1,40 @@
+{
+    "projects": [
+        {
+            "name": "coworking-analytics",
+            "arn": "arn:aws:codebuild:us-west-2:835207447818:project/coworking-analytics",
+            "source": {
+                "type": "S3",
+                "location": "leolin-coworking-codebuild-source-835207447818/coworking-source.zip",
+                "buildspec": "buildspec.yml",
+                "insecureSsl": false
+            },
+            "artifacts": {
+                "type": "NO_ARTIFACTS"
+            },
+            "cache": {
+                "type": "NO_CACHE"
+            },
+            "environment": {
+                "type": "LINUX_CONTAINER",
+                "image": "aws/codebuild/standard:7.0",
+                "computeType": "BUILD_GENERAL1_SMALL",
+                "environmentVariables": [],
+                "privilegedMode": true,
+                "imagePullCredentialsType": "CODEBUILD"
+            },
+            "serviceRole": "arn:aws:iam::835207447818:role/coworking-analytics-codebuild-role",
+            "timeoutInMinutes": 60,
+            "queuedTimeoutInMinutes": 480,
+            "encryptionKey": "arn:aws:kms:us-west-2:835207447818:alias/aws/s3",
+            "tags": [],
+            "created": "2026-05-16T10:34:11.539000+08:00",
+            "lastModified": "2026-05-16T10:34:11.539000+08:00",
+            "badge": {
+                "badgeEnabled": false
+            },
+            "projectVisibility": "PRIVATE"
+        }
+    ],
+    "projectsNotFound": []
+}

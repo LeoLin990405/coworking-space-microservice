@@ -1,0 +1,173 @@
+{
+    "builds": [
+        {
+            "id": "coworking-analytics:1429d18e-a6aa-4ee1-b3b3-3396afb26b7d",
+            "arn": "arn:aws:codebuild:us-west-2:835207447818:build/coworking-analytics:1429d18e-a6aa-4ee1-b3b3-3396afb26b7d",
+            "buildNumber": 1,
+            "startTime": "2026-05-16T10:34:12.733000+08:00",
+            "endTime": "2026-05-16T10:35:24.531000+08:00",
+            "currentPhase": "COMPLETED",
+            "buildStatus": "SUCCEEDED",
+            "projectName": "coworking-analytics",
+            "phases": [
+                {
+                    "phaseType": "SUBMITTED",
+                    "phaseStatus": "SUCCEEDED",
+                    "startTime": "2026-05-16T10:34:12.733000+08:00",
+                    "endTime": "2026-05-16T10:34:12.814000+08:00",
+                    "durationInSeconds": 0
+                },
+                {
+                    "phaseType": "QUEUED",
+                    "phaseStatus": "SUCCEEDED",
+                    "startTime": "2026-05-16T10:34:12.814000+08:00",
+                    "endTime": "2026-05-16T10:34:13.573000+08:00",
+                    "durationInSeconds": 0
+                },
+                {
+                    "phaseType": "PROVISIONING",
+                    "phaseStatus": "SUCCEEDED",
+                    "startTime": "2026-05-16T10:34:13.573000+08:00",
+                    "endTime": "2026-05-16T10:34:21.410000+08:00",
+                    "durationInSeconds": 7,
+                    "contexts": [
+                        {
+                            "statusCode": "",
+                            "message": ""
+                        }
+                    ]
+                },
+                {
+                    "phaseType": "DOWNLOAD_SOURCE",
+                    "phaseStatus": "SUCCEEDED",
+                    "startTime": "2026-05-16T10:34:21.410000+08:00",
+                    "endTime": "2026-05-16T10:34:22.963000+08:00",
+                    "durationInSeconds": 1,
+                    "contexts": [
+                        {
+                            "statusCode": "",
+                            "message": ""
+                        }
+                    ]
+                },
+                {
+                    "phaseType": "INSTALL",
+                    "phaseStatus": "SUCCEEDED",
+                    "startTime": "2026-05-16T10:34:22.963000+08:00",
+                    "endTime": "2026-05-16T10:34:23.038000+08:00",
+                    "durationInSeconds": 0,
+                    "contexts": [
+                        {
+                            "statusCode": "",
+                            "message": ""
+                        }
+                    ]
+                },
+                {
+                    "phaseType": "PRE_BUILD",
+                    "phaseStatus": "SUCCEEDED",
+                    "startTime": "2026-05-16T10:34:23.038000+08:00",
+                    "endTime": "2026-05-16T10:34:41.156000+08:00",
+                    "durationInSeconds": 18,
+                    "contexts": [
+                        {
+                            "statusCode": "",
+                            "message": ""
+                        }
+                    ]
+                },
+                {
+                    "phaseType": "BUILD",
+                    "phaseStatus": "SUCCEEDED",
+                    "startTime": "2026-05-16T10:34:41.156000+08:00",
+                    "endTime": "2026-05-16T10:35:07.561000+08:00",
+                    "durationInSeconds": 26,
+                    "contexts": [
+                        {
+                            "statusCode": "",
+                            "message": ""
+                        }
+                    ]
+                },
+                {
+                    "phaseType": "POST_BUILD",
+                    "phaseStatus": "SUCCEEDED",
+                    "startTime": "2026-05-16T10:35:07.561000+08:00",
+                    "endTime": "2026-05-16T10:35:24.123000+08:00",
+                    "durationInSeconds": 16,
+                    "contexts": [
+                        {
+                            "statusCode": "",
+                            "message": ""
+                        }
+                    ]
+                },
+                {
+                    "phaseType": "UPLOAD_ARTIFACTS",
+                    "phaseStatus": "SUCCEEDED",
+                    "startTime": "2026-05-16T10:35:24.123000+08:00",
+                    "endTime": "2026-05-16T10:35:24.227000+08:00",
+                    "durationInSeconds": 0,
+                    "contexts": [
+                        {
+                            "statusCode": "",
+                            "message": ""
+                        }
+                    ]
+                },
+                {
+                    "phaseType": "FINALIZING",
+                    "phaseStatus": "SUCCEEDED",
+                    "startTime": "2026-05-16T10:35:24.227000+08:00",
+                    "endTime": "2026-05-16T10:35:24.531000+08:00",
+                    "durationInSeconds": 0,
+                    "contexts": [
+                        {
+                            "statusCode": "",
+                            "message": ""
+                        }
+                    ]
+                },
+                {
+                    "phaseType": "COMPLETED",
+                    "startTime": "2026-05-16T10:35:24.531000+08:00"
+                }
+            ],
+            "source": {
+                "type": "S3",
+                "location": "leolin-coworking-codebuild-source-835207447818/coworking-source.zip",
+                "buildspec": "buildspec.yml",
+                "insecureSsl": false
+            },
+            "secondarySources": [],
+            "secondarySourceVersions": [],
+            "artifacts": {
+                "location": ""
+            },
+            "cache": {
+                "type": "NO_CACHE"
+            },
+            "environment": {
+                "type": "LINUX_CONTAINER",
+                "image": "aws/codebuild/standard:7.0",
+                "computeType": "BUILD_GENERAL1_SMALL",
+                "environmentVariables": [],
+                "privilegedMode": true,
+                "imagePullCredentialsType": "CODEBUILD"
+            },
+            "serviceRole": "arn:aws:iam::835207447818:role/coworking-analytics-codebuild-role",
+            "logs": {
+                "groupName": "/aws/codebuild/coworking-analytics",
+                "streamName": "1429d18e-a6aa-4ee1-b3b3-3396afb26b7d",
+                "deepLink": "https://console.aws.amazon.com/cloudwatch/home?region=us-west-2#logsV2:log-groups/log-group/$252Faws$252Fcodebuild$252Fcoworking-analytics/log-events/1429d18e-a6aa-4ee1-b3b3-3396afb26b7d",
+                "cloudWatchLogsArn": "arn:aws:logs:us-west-2:835207447818:log-group:/aws/codebuild/coworking-analytics:log-stream:1429d18e-a6aa-4ee1-b3b3-3396afb26b7d"
+            },
+            "timeoutInMinutes": 60,
+            "queuedTimeoutInMinutes": 480,
+            "buildComplete": true,
+            "initiator": "voclabs/user5028670=8899cadc-906c-11ec-9dc8-4325ba25866a",
+            "encryptionKey": "arn:aws:kms:us-west-2:835207447818:alias/aws/s3"
+        }
+    ],
+    "buildsNotFound": []
+}

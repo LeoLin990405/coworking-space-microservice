@@ -1,0 +1,56 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: IAM role for building and pushing the Coworking Space analytics Docker image with AWS CodeBuild.
+
+Parameters:
+  ProjectName:
+    Type: String
+    Default: coworking-analytics
+
+Resources:
+  CodeBuildServiceRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Sub ${ProjectName}-codebuild-role
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: codebuild.amazonaws.com
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: !Sub ${ProjectName}-codebuild-policy
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action:
+                  - logs:CreateLogGroup
+                  - logs:CreateLogStream
+                  - logs:PutLogEvents
+                Resource: "*"
+              - Effect: Allow
+                Action:
+                  - ecr:BatchCheckLayerAvailability
+                  - ecr:BatchGetImage
+                  - ecr:CompleteLayerUpload
+                  - ecr:CreateRepository
+                  - ecr:DescribeRepositories
+                  - ecr:GetAuthorizationToken
+                  - ecr:InitiateLayerUpload
+                  - ecr:PutImage
+                  - ecr:UploadLayerPart
+                Resource: "*"
+              - Effect: Allow
+                Action:
+                  - s3:GetObject
+                  - s3:GetObjectVersion
+                  - s3:PutObject
+                  - s3:GetBucketLocation
+                Resource: "*"
+
+Outputs:
+  CodeBuildRoleArn:
+    Value: !GetAtt CodeBuildServiceRole.Arn
+    Export:
+      Name: !Sub ${ProjectName}-CodeBuildRoleArn
