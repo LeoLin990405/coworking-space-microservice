@@ -45,8 +45,8 @@ Push a commit to the GitHub repository after the CodeBuild project is created; t
 The build pushes:
 
 ```text
-835207447818.dkr.ecr.us-west-2.amazonaws.com/coworking-analytics:1.0.0
-835207447818.dkr.ecr.us-west-2.amazonaws.com/coworking-analytics:latest
+224429379372.dkr.ecr.us-west-2.amazonaws.com/coworking-analytics:1.0.0
+224429379372.dkr.ecr.us-west-2.amazonaws.com/coworking-analytics:latest
 ```
 
 ## Deploy to Kubernetes

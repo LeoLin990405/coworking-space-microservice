@@ -7,7 +7,7 @@
 ## Container Image
 
 - ECR repository: `coworking-analytics`
-- Image URI: `835207447818.dkr.ecr.us-west-2.amazonaws.com/coworking-analytics:1.0.0`
+- Image URI: `224429379372.dkr.ecr.us-west-2.amazonaws.com/coworking-analytics:1.0.0`
 - Additional tag: `latest`
 
 ## Required Udacity Evidence

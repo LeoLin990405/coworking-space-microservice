@@ -14,7 +14,7 @@ EVIDENCE = ROOT / "submission" / "evidence"
 SCREENSHOTS = ROOT / "screenshots"
 SUBMISSION_SCREENSHOTS = ROOT / "submission" / "screenshots"
 REGION = "us-west-2"
-ACCOUNT = "835207447818"
+ACCOUNT = "224429379372"
 IMAGE = f"{ACCOUNT}.dkr.ecr.{REGION}.amazonaws.com/coworking-analytics:1.0.0"
 
 
