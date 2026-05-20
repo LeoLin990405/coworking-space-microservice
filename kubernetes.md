@@ -4,13 +4,10 @@ The production deployment assumes an existing EKS cluster with the CloudWatch Co
 
 ## PostgreSQL
 
-Create the PostgreSQL password Secret and deploy PostgreSQL with the included manifest:
+Apply the explicit Secret manifest and deploy PostgreSQL:
 
 ```bash
-export POSTGRES_PASSWORD='<choose-a-password>'
-kubectl create secret generic coworking-postgresql \
-  --from-literal=postgres-password="$POSTGRES_PASSWORD" \
-  --dry-run=client -o yaml | kubectl apply -f -
+kubectl apply -f deployment/secrets.yaml
 kubectl apply -f deployment/postgresql.yaml
 kubectl rollout status statefulset/coworking-postgresql
 ```
@@ -33,9 +30,7 @@ After the Docker image is built and pushed to ECR:
 
 ```bash
 kubectl apply -f deployment/configmap.yaml
-kubectl create secret generic coworking-secret \
-  --from-literal=DB_PASSWORD="$POSTGRES_PASSWORD" \
-  --dry-run=client -o yaml | kubectl apply -f -
+kubectl apply -f deployment/secrets.yaml
 kubectl apply -f deployment/coworking.yaml
 kubectl rollout status deployment/coworking
 ```
