@@ -9,7 +9,7 @@ The service is a Flask analytics API that reads coworking space activity from Po
 - **Flask API** in `analytics/`.
 - **PostgreSQL** deployed in Kubernetes with the provided `StatefulSet` and `ClusterIP` Service manifest.
 - **Docker** image built from `analytics/Dockerfile`.
-- **AWS CodeBuild** builds the image remotely and pushes semantic version `1.0.0` to ECR.
+- **AWS CodeBuild** is connected to the public GitHub repository and builds automatically from a push webhook.
 - **Amazon ECR** stores `coworking-analytics:1.0.0` and `latest`.
 - **Kubernetes** runs the service with a `LoadBalancer` service, liveness/readiness probes, ConfigMap, Secret, and CPU/memory requests.
 - **AWS CloudWatch** receives EKS/container logs when Container Insights is enabled.
@@ -19,11 +19,12 @@ The service is a Flask analytics API that reads coworking space activity from Po
 ```text
 analytics/Dockerfile              Python container image definition
 buildspec.yml                     AWS CodeBuild build and ECR push pipeline
-deployment/configmap.yaml         Kubernetes ConfigMap and Secret template
+deployment/configmap.yaml         Kubernetes ConfigMap
+deployment/secrets.yaml           Kubernetes Secret manifests for app and database credentials
 deployment/postgresql.yaml        Kubernetes PostgreSQL Secret, Service, and StatefulSet
 deployment/coworking.yaml         Kubernetes Service and Deployment
 deployment-local/                 Local Kubernetes variants
-scripts/deploy-codebuild.sh       Creates ECR, S3 source package, IAM role, CodeBuild project, and starts a build
+scripts/deploy-codebuild.sh       Creates ECR, IAM role, GitHub-sourced CodeBuild project, and webhook trigger
 scripts/wait-codebuild.sh         Polls CodeBuild until completion
 scripts/deploy-k8s.sh             Applies PostgreSQL and application Kubernetes manifests
 scripts/seed-db.sh                Seeds PostgreSQL with provided SQL files
@@ -37,8 +38,9 @@ SUBMISSION.md                     Rubric-to-evidence mapping for reviewers
 ```bash
 export AWS_REGION=us-west-2
 ./scripts/deploy-codebuild.sh
-./scripts/wait-codebuild.sh <BUILD_ID_FROM_PREVIOUS_COMMAND>
 ```
+
+Push a commit to the GitHub repository after the CodeBuild project is created; the required reviewer evidence is a successful build whose initiator is `GitHub-Hookshot` or the AWS console's equivalent webhook label.
 
 The build pushes:
 
@@ -92,3 +94,5 @@ Evidence files from the AWS build are stored in `submission/evidence/`. Required
 - `kubectl-describe-svc-postgresql.png`
 - `kubectl-describe-deployment.png`
 - `cloudwatch-logs.png`
+
+The CodeBuild screenshot should show the GitHub webhook source and automatic initiator, and the CloudWatch screenshot should come from `/aws/containerinsights/<cluster>/application` rather than the CodeBuild log group.

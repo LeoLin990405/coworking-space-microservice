@@ -22,7 +22,7 @@
 | `kubectl describe svc <DATABASE_SERVICE_NAME>` screenshot | `screenshots/kubectl-describe-svc-postgresql.png` |
 | `kubectl describe deployment <SERVICE_NAME>` screenshot | `screenshots/kubectl-describe-deployment.png` |
 | CloudWatch logs screenshot | `screenshots/cloudwatch-logs.png` |
-| Kubernetes config files | `deployment/configmap.yaml`, `deployment/postgresql.yaml`, `deployment/coworking.yaml` |
+| Kubernetes config files | `deployment/configmap.yaml`, `deployment/secrets.yaml`, `deployment/postgresql.yaml`, `deployment/coworking.yaml` |
 | Deployment instructions | `README.md`, `kubernetes.md` |
 
 The same screenshots are mirrored under `submission/screenshots/`.
@@ -38,4 +38,4 @@ AWS evidence captured during the successful build and push is stored under `subm
 
 ## Notes
 
-The Kubernetes manifests include resource requests and limits to support predictable scheduling and avoid unbounded resource usage. The application deployment uses the semantic image tag `1.0.0` instead of relying only on `latest`.
+This resubmission updates the CodeBuild project setup to use the GitHub repository as the source and creates a push webhook so the reviewer can verify a `GitHub-Hookshot` automatic build. It also adds explicit Kubernetes Secret manifests in `deployment/secrets.yaml` and requires CloudWatch evidence from Container Insights application logs rather than CodeBuild logs.

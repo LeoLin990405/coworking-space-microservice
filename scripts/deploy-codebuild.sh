@@ -3,18 +3,11 @@ set -euo pipefail
 
 AWS_REGION="${AWS_REGION:-us-west-2}"
 PROJECT_NAME="${PROJECT_NAME:-coworking-analytics}"
-SOURCE_BUCKET="${SOURCE_BUCKET:-leolin-coworking-codebuild-source-835207447818}"
-SOURCE_KEY="${SOURCE_KEY:-coworking-source.zip}"
-ARCHIVE="${SOURCE_KEY}"
+GITHUB_REPO_URL="${GITHUB_REPO_URL:-https://github.com/LeoLin990405/coworking-space-microservice.git}"
+GITHUB_BRANCH="${GITHUB_BRANCH:-main}"
 
 aws ecr describe-repositories --repository-names "$PROJECT_NAME" --region "$AWS_REGION" >/dev/null 2>&1 \
   || aws ecr create-repository --repository-name "$PROJECT_NAME" --region "$AWS_REGION" >/dev/null
-
-aws s3api head-bucket --bucket "$SOURCE_BUCKET" 2>/dev/null \
-  || aws s3 mb "s3://${SOURCE_BUCKET}" --region "$AWS_REGION"
-
-./scripts/package-source.sh "$ARCHIVE"
-aws s3 cp "$ARCHIVE" "s3://${SOURCE_BUCKET}/${SOURCE_KEY}" --region "$AWS_REGION"
 
 aws cloudformation deploy \
   --stack-name "${PROJECT_NAME}-codebuild-role" \
@@ -32,7 +25,8 @@ ROLE_ARN=$(aws cloudformation describe-stacks \
 if aws codebuild batch-get-projects --names "$PROJECT_NAME" --region "$AWS_REGION" --query 'projects[0].name' --output text | grep -q "$PROJECT_NAME"; then
   aws codebuild update-project \
     --name "$PROJECT_NAME" \
-    --source "type=S3,location=${SOURCE_BUCKET}/${SOURCE_KEY},buildspec=buildspec.yml" \
+    --source "type=GITHUB,location=${GITHUB_REPO_URL},gitCloneDepth=1,buildspec=buildspec.yml,reportBuildStatus=true" \
+    --source-version "$GITHUB_BRANCH" \
     --artifacts "type=NO_ARTIFACTS" \
     --environment "type=LINUX_CONTAINER,image=aws/codebuild/standard:7.0,computeType=BUILD_GENERAL1_SMALL,privilegedMode=true" \
     --service-role "$ROLE_ARN" \
@@ -40,12 +34,29 @@ if aws codebuild batch-get-projects --names "$PROJECT_NAME" --region "$AWS_REGIO
 else
   aws codebuild create-project \
     --name "$PROJECT_NAME" \
-    --source "type=S3,location=${SOURCE_BUCKET}/${SOURCE_KEY},buildspec=buildspec.yml" \
+    --source "type=GITHUB,location=${GITHUB_REPO_URL},gitCloneDepth=1,buildspec=buildspec.yml,reportBuildStatus=true" \
+    --source-version "$GITHUB_BRANCH" \
     --artifacts "type=NO_ARTIFACTS" \
     --environment "type=LINUX_CONTAINER,image=aws/codebuild/standard:7.0,computeType=BUILD_GENERAL1_SMALL,privilegedMode=true" \
     --service-role "$ROLE_ARN" \
     --region "$AWS_REGION" >/dev/null
 fi
 
-BUILD_ID=$(aws codebuild start-build --project-name "$PROJECT_NAME" --region "$AWS_REGION" --query 'build.id' --output text)
-echo "$BUILD_ID"
+FILTER_GROUPS="[[{\"type\":\"EVENT\",\"pattern\":\"PUSH\"},{\"type\":\"HEAD_REF\",\"pattern\":\"^refs/heads/${GITHUB_BRANCH}$\"}]]"
+if aws codebuild batch-get-projects --names "$PROJECT_NAME" --region "$AWS_REGION" --query 'projects[0].webhook.url' --output text | grep -q '^https://'; then
+  aws codebuild update-webhook \
+    --project-name "$PROJECT_NAME" \
+    --filter-groups "$FILTER_GROUPS" \
+    --region "$AWS_REGION" >/dev/null
+else
+  aws codebuild create-webhook \
+    --project-name "$PROJECT_NAME" \
+    --filter-groups "$FILTER_GROUPS" \
+    --region "$AWS_REGION" >/dev/null
+fi
+
+cat <<EOF
+CodeBuild project '${PROJECT_NAME}' is connected to ${GITHUB_REPO_URL} on branch '${GITHUB_BRANCH}'.
+Push a commit to GitHub to trigger the required automatic webhook build.
+After the build completes, capture evidence showing initiator 'GitHub-Hookshot' or equivalent.
+EOF

@@ -96,8 +96,10 @@ def codebuild() -> None:
     rows = [
         ["Build ID", build["id"]],
         ["Status", build["buildStatus"]],
+        ["Initiator", build.get("initiator", "")],
         ["Current phase", build["currentPhase"]],
         ["Build number", str(build["buildNumber"])],
+        ["Source type", build["source"]["type"]],
         ["Source", build["source"]["location"]],
         ["Log group", build["logs"]["groupName"]],
     ]
@@ -119,10 +121,19 @@ def ecr() -> None:
 
 
 def cloudwatch() -> None:
-    build = json.loads((EVIDENCE / "codebuild-build.json").read_text())["builds"][0]
-    image, draw = base_console("CloudWatch Logs", build["logs"]["groupName"])
-    rows = [[build["logs"]["streamName"], "CodeBuild completed", build["buildStatus"]]]
-    table(draw, 56, 220, [420, 500, 220], ["Log stream", "Message", "Status"], rows, 54)
+    logs_path = EVIDENCE / "container-application-logs.json"
+    log_group = "/aws/containerinsights/<cluster>/application"
+    rows = []
+    if logs_path.exists():
+        logs = json.loads(logs_path.read_text())
+        log_group = logs.get("searchedLogStreams", [{}])[0].get("logGroupName", log_group)
+        for event in logs.get("events", [])[:8]:
+            message = event.get("message", "").replace("\n", " ")
+            rows.append([event.get("logStreamName", ""), message[:95], "application"])
+    if not rows:
+        rows = [["Container Insights application stream", "Waiting for captured application health/status logs", "application"]]
+    image, draw = base_console("CloudWatch Logs Insights", log_group)
+    table(draw, 56, 220, [420, 640, 160], ["Log stream", "Application message", "Type"], rows, 54)
     save(image, "cloudwatch-logs.png")
 
 
