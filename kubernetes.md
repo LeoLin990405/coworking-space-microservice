@@ -4,12 +4,15 @@ The production deployment assumes an existing EKS cluster with the CloudWatch Co
 
 ## PostgreSQL
 
-Install PostgreSQL with the Bitnami Helm chart:
+Create the PostgreSQL password Secret and deploy PostgreSQL with the included manifest:
 
 ```bash
-helm repo add bitnami https://charts.bitnami.com/bitnami
-helm repo update
-helm upgrade --install coworking bitnami/postgresql
+export POSTGRES_PASSWORD='<choose-a-password>'
+kubectl create secret generic coworking-postgresql \
+  --from-literal=postgres-password="$POSTGRES_PASSWORD" \
+  --dry-run=client -o yaml | kubectl apply -f -
+kubectl apply -f deployment/postgresql.yaml
+kubectl rollout status statefulset/coworking-postgresql
 ```
 
 Seed the database:
@@ -31,7 +34,7 @@ After the Docker image is built and pushed to ECR:
 ```bash
 kubectl apply -f deployment/configmap.yaml
 kubectl create secret generic coworking-secret \
-  --from-literal=DB_PASSWORD="$(kubectl get secret --namespace default coworking-postgresql -o jsonpath='{.data.postgres-password}' | base64 -d)" \
+  --from-literal=DB_PASSWORD="$POSTGRES_PASSWORD" \
   --dry-run=client -o yaml | kubectl apply -f -
 kubectl apply -f deployment/coworking.yaml
 kubectl rollout status deployment/coworking

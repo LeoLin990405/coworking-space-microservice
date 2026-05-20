@@ -7,7 +7,7 @@ The service is a Flask analytics API that reads coworking space activity from Po
 ## Architecture
 
 - **Flask API** in `analytics/`.
-- **PostgreSQL** installed in Kubernetes with the Bitnami Helm chart.
+- **PostgreSQL** deployed in Kubernetes with the provided `StatefulSet` and `ClusterIP` Service manifest.
 - **Docker** image built from `analytics/Dockerfile`.
 - **AWS CodeBuild** builds the image remotely and pushes semantic version `1.0.0` to ECR.
 - **Amazon ECR** stores `coworking-analytics:1.0.0` and `latest`.
@@ -20,13 +20,16 @@ The service is a Flask analytics API that reads coworking space activity from Po
 analytics/Dockerfile              Python container image definition
 buildspec.yml                     AWS CodeBuild build and ECR push pipeline
 deployment/configmap.yaml         Kubernetes ConfigMap and Secret template
+deployment/postgresql.yaml        Kubernetes PostgreSQL Secret, Service, and StatefulSet
 deployment/coworking.yaml         Kubernetes Service and Deployment
 deployment-local/                 Local Kubernetes variants
 scripts/deploy-codebuild.sh       Creates ECR, S3 source package, IAM role, CodeBuild project, and starts a build
 scripts/wait-codebuild.sh         Polls CodeBuild until completion
-scripts/deploy-k8s.sh             Installs PostgreSQL and applies Kubernetes manifests
+scripts/deploy-k8s.sh             Applies PostgreSQL and application Kubernetes manifests
 scripts/seed-db.sh                Seeds PostgreSQL with provided SQL files
 cloudformation/codebuild-role.yml IAM role for CodeBuild
+screenshots/                      Required Udacity submission screenshots
+SUBMISSION.md                     Rubric-to-evidence mapping for reviewers
 ```
 
 ## Build and Push Image
@@ -46,7 +49,7 @@ The build pushes:
 
 ## Deploy to Kubernetes
 
-Use an EKS cluster with `kubectl` and `helm` configured locally:
+Use an EKS cluster with `kubectl` configured locally:
 
 ```bash
 ./scripts/deploy-k8s.sh
@@ -55,6 +58,8 @@ Use an EKS cluster with `kubectl` and `helm` configured locally:
 
 The deployment creates:
 
+- `coworking-postgresql` PostgreSQL StatefulSet.
+- `coworking-postgresql` ClusterIP Service.
 - `coworking-config` ConfigMap.
 - `coworking-secret` Secret.
 - `coworking` Deployment.
@@ -74,8 +79,16 @@ The application is lightweight Flask API code, so the Kubernetes manifest reques
 
 ## Cost Notes
 
-To reduce costs, run the smallest EKS node group that satisfies memory requirements, set Kubernetes resource requests realistically, and delete unused LoadBalancers/ECR images/CodeBuild projects. In a production environment, move PostgreSQL to a managed RDS instance only when operational requirements justify the cost; for a small project, the Helm-based database is adequate.
+To reduce costs, run the smallest EKS node group that satisfies memory requirements, set Kubernetes resource requests realistically, and delete unused LoadBalancers/ECR images/CodeBuild projects. In a production environment, move PostgreSQL to a managed RDS instance only when operational requirements justify the cost; for this project submission, a Kubernetes PostgreSQL StatefulSet keeps the deployment self-contained.
 
 ## Submission Evidence
 
-Evidence files from the AWS build are stored in `submission/evidence/`. Kubernetes screenshots should be added to `submission/screenshots/` after deploying to an EKS cluster with `kubectl` access.
+Evidence files from the AWS build are stored in `submission/evidence/`. Required screenshots are stored in both `screenshots/` and `submission/screenshots/`:
+
+- `codebuild-pipeline.png`
+- `ecr-repository.png`
+- `kubectl-get-svc.png`
+- `kubectl-get-pods.png`
+- `kubectl-describe-svc-postgresql.png`
+- `kubectl-describe-deployment.png`
+- `cloudwatch-logs.png`

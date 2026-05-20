@@ -1,0 +1,69 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: coworking-postgresql
+  labels:
+    app: coworking-postgresql
+spec:
+  type: ClusterIP
+  selector:
+    app: coworking-postgresql
+  ports:
+  - name: postgresql
+    protocol: TCP
+    port: 5432
+    targetPort: 5432
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: coworking-postgresql
+  labels:
+    app: coworking-postgresql
+spec:
+  serviceName: coworking-postgresql
+  replicas: 1
+  selector:
+    matchLabels:
+      app: coworking-postgresql
+  template:
+    metadata:
+      labels:
+        app: coworking-postgresql
+    spec:
+      containers:
+      - name: postgresql
+        image: postgres:13
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 5432
+          name: postgresql
+        env:
+        - name: POSTGRES_DB
+          value: postgres
+        - name: POSTGRES_USER
+          value: postgres
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: coworking-postgresql
+              key: postgres-password
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "256Mi"
+          limits:
+            cpu: "500m"
+            memory: "512Mi"
+        volumeMounts:
+        - name: postgres-data
+          mountPath: /var/lib/postgresql/data
+  volumeClaimTemplates:
+  - metadata:
+      name: postgres-data
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      resources:
+        requests:
+          storage: 1Gi

@@ -6,6 +6,7 @@
 - CodeBuild successful build evidence: `submission/evidence/codebuild-build.json`
 - ECR repository evidence: `submission/evidence/ecr-repository.json`
 - ECR pushed image evidence: `submission/evidence/ecr-images.json`
+- Screenshots are included in `screenshots/` and mirrored in `submission/screenshots/`.
 
 The successful image tag is:
 
@@ -15,14 +16,14 @@ The successful image tag is:
 
 ## Kubernetes Verification Commands
 
-After applying the manifests to an EKS cluster, capture the required screenshots with:
+After applying the manifests to an EKS cluster, verify with:
 
 ```bash
 kubectl get svc
 kubectl get pods
-kubectl describe svc coworking-service
-kubectl describe deployment coworking-analytics
-kubectl logs deployment/coworking-analytics
+kubectl describe svc coworking-postgresql
+kubectl describe deployment coworking
+kubectl logs deployment/coworking
 ```
 
 CloudWatch evidence for the CodeBuild pipeline is available in log group:
