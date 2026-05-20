@@ -2,13 +2,16 @@
     "projects": [
         {
             "name": "coworking-analytics",
-            "arn": "arn:aws:codebuild:us-west-2:835207447818:project/coworking-analytics",
+            "arn": "arn:aws:codebuild:us-west-2:224429379372:project/coworking-analytics",
             "source": {
-                "type": "S3",
-                "location": "leolin-coworking-codebuild-source-835207447818/coworking-source.zip",
+                "type": "GITHUB",
+                "location": "https://github.com/LeoLin990405/coworking-space-microservice.git",
+                "gitCloneDepth": 1,
                 "buildspec": "buildspec.yml",
+                "reportBuildStatus": true,
                 "insecureSsl": false
             },
+            "sourceVersion": "main",
             "artifacts": {
                 "type": "NO_ARTIFACTS"
             },
@@ -23,13 +26,41 @@
                 "privilegedMode": true,
                 "imagePullCredentialsType": "CODEBUILD"
             },
-            "serviceRole": "arn:aws:iam::835207447818:role/coworking-analytics-codebuild-role",
+            "serviceRole": "arn:aws:iam::224429379372:role/coworking-analytics-codebuild-role",
             "timeoutInMinutes": 60,
             "queuedTimeoutInMinutes": 480,
-            "encryptionKey": "arn:aws:kms:us-west-2:835207447818:alias/aws/s3",
+            "encryptionKey": "arn:aws:kms:us-west-2:224429379372:alias/aws/s3",
             "tags": [],
-            "created": "2026-05-16T10:34:11.539000+08:00",
-            "lastModified": "2026-05-16T10:34:11.539000+08:00",
+            "created": "2026-05-20T19:15:11.026000+08:00",
+            "lastModified": "2026-05-20T19:16:53.967000+08:00",
+            "webhook": {
+                "url": "https://api.github.com/repos/LeoLin990405/coworking-space-microservice/hooks/627275686",
+                "payloadUrl": "https://codebuild.us-west-2.amazonaws.com/webhooks?t=eyJlbmNyeXB0ZWREYXRhIjoiaVIvZ3ErckhLanNFTmMxbDlrd0F3Ymd6Q0dSdFdKNW1EZ25IczZYRW03emFXaXg0UGNCbkx1dWx4bGtIUmw5K0ZYL2tPc21waWZVVzZKenRpVHIvVURJPSIsIml2UGFyYW1ldGVyU3BlYyI6IlhOc21BdSs3RStHUjY3a1giLCJtYXRlcmlhbFNldFNlcmlhbCI6MX0%3D&v=1",
+                "filterGroups": [
+                    [
+                        {
+                            "type": "EVENT",
+                            "pattern": "PUSH",
+                            "excludeMatchedPattern": false
+                        },
+                        {
+                            "type": "HEAD_REF",
+                            "pattern": "^refs/heads/main$",
+                            "excludeMatchedPattern": false
+                        }
+                    ]
+                ],
+                "manualCreation": false,
+                "status": "ACTIVE",
+                "pullRequestBuildPolicy": {
+                    "requiresCommentApproval": "ALL_PULL_REQUESTS",
+                    "approverRoles": [
+                        "GITHUB_WRITE",
+                        "GITHUB_MAINTAIN",
+                        "GITHUB_ADMIN"
+                    ]
+                }
+            },
             "badge": {
                 "badgeEnabled": false
             },

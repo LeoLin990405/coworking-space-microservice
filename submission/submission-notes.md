@@ -6,6 +6,7 @@
 - CodeBuild successful build evidence: `submission/evidence/codebuild-build.json`
 - ECR repository evidence: `submission/evidence/ecr-repository.json`
 - ECR pushed image evidence: `submission/evidence/ecr-images.json`
+- Container Insights application log evidence: `submission/evidence/container-application-logs.json`
 - Screenshots are included in `screenshots/` and mirrored in `submission/screenshots/`.
 - Kubernetes Secret manifests are included in `deployment/secrets.yaml`.
 
@@ -27,10 +28,16 @@ kubectl describe deployment coworking
 kubectl logs deployment/coworking
 ```
 
-CloudWatch evidence for the running application should be captured from Container Insights application logs:
+The current CodeBuild evidence shows a successful GitHub webhook build with initiator:
 
 ```text
-/aws/containerinsights/<cluster-name>/application
+GitHub-Hookshot/e5e15fa
+```
+
+CloudWatch evidence for the running application is captured from Container Insights application logs:
+
+```text
+/aws/containerinsights/coworking-cluster/application
 ```
 
 The CodeBuild screenshot must show that the build was triggered by a GitHub webhook, typically shown as `GitHub-Hookshot` in the build initiator/source fields.

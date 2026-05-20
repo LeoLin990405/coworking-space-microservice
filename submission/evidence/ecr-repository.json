@@ -1,11 +1,11 @@
 {
     "repositories": [
         {
-            "repositoryArn": "arn:aws:ecr:us-west-2:835207447818:repository/coworking-analytics",
-            "registryId": "835207447818",
+            "repositoryArn": "arn:aws:ecr:us-west-2:224429379372:repository/coworking-analytics",
+            "registryId": "224429379372",
             "repositoryName": "coworking-analytics",
-            "repositoryUri": "835207447818.dkr.ecr.us-west-2.amazonaws.com/coworking-analytics",
-            "createdAt": "2026-05-16T10:33:23.289000+08:00",
+            "repositoryUri": "224429379372.dkr.ecr.us-west-2.amazonaws.com/coworking-analytics",
+            "createdAt": "2026-05-20T19:14:27.707000+08:00",
             "imageTagMutability": "MUTABLE",
             "imageScanningConfiguration": {
                 "scanOnPush": false

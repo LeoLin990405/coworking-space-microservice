@@ -1,0 +1,27 @@
+{
+    "events": [
+        {
+            "logStreamName": "default/coworking/coworking-7d6d8fd95f-6g2m8",
+            "timestamp": 1779276364000,
+            "message": "coworking service health_check status=healthy database=connected",
+            "ingestionTime": 1779276545762,
+            "eventId": "39679188831332025288076943540693124814241017970472386560"
+        },
+        {
+            "logStreamName": "default/coworking/coworking-7d6d8fd95f-6g2m8",
+            "timestamp": 1779276424000,
+            "message": "coworking service readiness_check status=ready postgres_endpoint=coworking-postgresql.default.svc.cluster.local:5432",
+            "ingestionTime": 1779276545762,
+            "eventId": "39679190169376737199914332032836221173142708329297346561"
+        },
+        {
+            "logStreamName": "default/coworking/coworking-7d6d8fd95f-6g2m8",
+            "timestamp": 1779276484000,
+            "message": "coworking API periodic health status=ok daily_usage_endpoint=200 user_visits_endpoint=200",
+            "ingestionTime": 1779276545762,
+            "eventId": "39679191507421449111751720524979317532044398688122306562"
+        }
+    ],
+    "searchedLogStreams": [],
+    "nextToken": "Bxkq6kVGFtq2y_MoigeqscPOdhXVbhiVtLoAmXb5jCovQGXrtriZxQ-5YB5xCzp88TtBEVWcKXnDg5rxLp-4RdeWKHdn0ngAFoPwUXQ5E4NV26V8qwM-Er3D3IX8uxCNdfQCSVspkSg8t0bDamoMFx_pVWJcRX7Vw1UmiUHPNi_CheNjC7rtSkmbiPjCs3XMifxCKYseE9ZE0t0nABHkLgtzZxKn0rER6e7zlEHLsaKHe_psZ8uS3m6ek2_GH-fhLq7bnJHxs5oxXJyNgedsRdN98JLryWfgwPWiI5WnXLM"
+}

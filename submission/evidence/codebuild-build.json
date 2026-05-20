@@ -1,35 +1,37 @@
 {
     "builds": [
         {
-            "id": "coworking-analytics:1429d18e-a6aa-4ee1-b3b3-3396afb26b7d",
-            "arn": "arn:aws:codebuild:us-west-2:835207447818:build/coworking-analytics:1429d18e-a6aa-4ee1-b3b3-3396afb26b7d",
+            "id": "coworking-analytics:33436dc0-e9c6-45d1-b7f5-63e6310004dd",
+            "arn": "arn:aws:codebuild:us-west-2:224429379372:build/coworking-analytics:33436dc0-e9c6-45d1-b7f5-63e6310004dd",
             "buildNumber": 1,
-            "startTime": "2026-05-16T10:34:12.733000+08:00",
-            "endTime": "2026-05-16T10:35:24.531000+08:00",
+            "startTime": "2026-05-20T19:17:01.216000+08:00",
+            "endTime": "2026-05-20T19:18:15.938000+08:00",
             "currentPhase": "COMPLETED",
             "buildStatus": "SUCCEEDED",
+            "sourceVersion": "e7e6234b5f67663448623b5cbdcc6692d718609d",
+            "resolvedSourceVersion": "e7e6234b5f67663448623b5cbdcc6692d718609d",
             "projectName": "coworking-analytics",
             "phases": [
                 {
                     "phaseType": "SUBMITTED",
                     "phaseStatus": "SUCCEEDED",
-                    "startTime": "2026-05-16T10:34:12.733000+08:00",
-                    "endTime": "2026-05-16T10:34:12.814000+08:00",
+                    "startTime": "2026-05-20T19:17:01.216000+08:00",
+                    "endTime": "2026-05-20T19:17:01.299000+08:00",
                     "durationInSeconds": 0
                 },
                 {
                     "phaseType": "QUEUED",
                     "phaseStatus": "SUCCEEDED",
-                    "startTime": "2026-05-16T10:34:12.814000+08:00",
-                    "endTime": "2026-05-16T10:34:13.573000+08:00",
+                    "startTime": "2026-05-20T19:17:01.299000+08:00",
+                    "endTime": "2026-05-20T19:17:02.055000+08:00",
                     "durationInSeconds": 0
                 },
                 {
                     "phaseType": "PROVISIONING",
                     "phaseStatus": "SUCCEEDED",
-                    "startTime": "2026-05-16T10:34:13.573000+08:00",
-                    "endTime": "2026-05-16T10:34:21.410000+08:00",
-                    "durationInSeconds": 7,
+                    "startTime": "2026-05-20T19:17:02.055000+08:00",
+                    "endTime": "2026-05-20T19:17:11.247000+08:00",
+                    "durationInSeconds": 9,
                     "contexts": [
                         {
                             "statusCode": "",
@@ -40,9 +42,9 @@
                 {
                     "phaseType": "DOWNLOAD_SOURCE",
                     "phaseStatus": "SUCCEEDED",
-                    "startTime": "2026-05-16T10:34:21.410000+08:00",
-                    "endTime": "2026-05-16T10:34:22.963000+08:00",
-                    "durationInSeconds": 1,
+                    "startTime": "2026-05-20T19:17:11.247000+08:00",
+                    "endTime": "2026-05-20T19:17:15.228000+08:00",
+                    "durationInSeconds": 3,
                     "contexts": [
                         {
                             "statusCode": "",
@@ -53,8 +55,8 @@
                 {
                     "phaseType": "INSTALL",
                     "phaseStatus": "SUCCEEDED",
-                    "startTime": "2026-05-16T10:34:22.963000+08:00",
-                    "endTime": "2026-05-16T10:34:23.038000+08:00",
+                    "startTime": "2026-05-20T19:17:15.228000+08:00",
+                    "endTime": "2026-05-20T19:17:15.300000+08:00",
                     "durationInSeconds": 0,
                     "contexts": [
                         {
@@ -66,9 +68,9 @@
                 {
                     "phaseType": "PRE_BUILD",
                     "phaseStatus": "SUCCEEDED",
-                    "startTime": "2026-05-16T10:34:23.038000+08:00",
-                    "endTime": "2026-05-16T10:34:41.156000+08:00",
-                    "durationInSeconds": 18,
+                    "startTime": "2026-05-20T19:17:15.300000+08:00",
+                    "endTime": "2026-05-20T19:17:32.338000+08:00",
+                    "durationInSeconds": 17,
                     "contexts": [
                         {
                             "statusCode": "",
@@ -79,9 +81,9 @@
                 {
                     "phaseType": "BUILD",
                     "phaseStatus": "SUCCEEDED",
-                    "startTime": "2026-05-16T10:34:41.156000+08:00",
-                    "endTime": "2026-05-16T10:35:07.561000+08:00",
-                    "durationInSeconds": 26,
+                    "startTime": "2026-05-20T19:17:32.338000+08:00",
+                    "endTime": "2026-05-20T19:17:57.322000+08:00",
+                    "durationInSeconds": 24,
                     "contexts": [
                         {
                             "statusCode": "",
@@ -92,9 +94,9 @@
                 {
                     "phaseType": "POST_BUILD",
                     "phaseStatus": "SUCCEEDED",
-                    "startTime": "2026-05-16T10:35:07.561000+08:00",
-                    "endTime": "2026-05-16T10:35:24.123000+08:00",
-                    "durationInSeconds": 16,
+                    "startTime": "2026-05-20T19:17:57.322000+08:00",
+                    "endTime": "2026-05-20T19:18:15.511000+08:00",
+                    "durationInSeconds": 18,
                     "contexts": [
                         {
                             "statusCode": "",
@@ -105,8 +107,8 @@
                 {
                     "phaseType": "UPLOAD_ARTIFACTS",
                     "phaseStatus": "SUCCEEDED",
-                    "startTime": "2026-05-16T10:35:24.123000+08:00",
-                    "endTime": "2026-05-16T10:35:24.227000+08:00",
+                    "startTime": "2026-05-20T19:18:15.511000+08:00",
+                    "endTime": "2026-05-20T19:18:15.642000+08:00",
                     "durationInSeconds": 0,
                     "contexts": [
                         {
@@ -118,8 +120,8 @@
                 {
                     "phaseType": "FINALIZING",
                     "phaseStatus": "SUCCEEDED",
-                    "startTime": "2026-05-16T10:35:24.227000+08:00",
-                    "endTime": "2026-05-16T10:35:24.531000+08:00",
+                    "startTime": "2026-05-20T19:18:15.642000+08:00",
+                    "endTime": "2026-05-20T19:18:15.938000+08:00",
                     "durationInSeconds": 0,
                     "contexts": [
                         {
@@ -130,13 +132,15 @@
                 },
                 {
                     "phaseType": "COMPLETED",
-                    "startTime": "2026-05-16T10:35:24.531000+08:00"
+                    "startTime": "2026-05-20T19:18:15.938000+08:00"
                 }
             ],
             "source": {
-                "type": "S3",
-                "location": "leolin-coworking-codebuild-source-835207447818/coworking-source.zip",
+                "type": "GITHUB",
+                "location": "https://github.com/LeoLin990405/coworking-space-microservice.git",
+                "gitCloneDepth": 1,
                 "buildspec": "buildspec.yml",
+                "reportBuildStatus": true,
                 "insecureSsl": false
             },
             "secondarySources": [],
@@ -155,18 +159,18 @@
                 "privilegedMode": true,
                 "imagePullCredentialsType": "CODEBUILD"
             },
-            "serviceRole": "arn:aws:iam::835207447818:role/coworking-analytics-codebuild-role",
+            "serviceRole": "arn:aws:iam::224429379372:role/coworking-analytics-codebuild-role",
             "logs": {
                 "groupName": "/aws/codebuild/coworking-analytics",
-                "streamName": "1429d18e-a6aa-4ee1-b3b3-3396afb26b7d",
-                "deepLink": "https://console.aws.amazon.com/cloudwatch/home?region=us-west-2#logsV2:log-groups/log-group/$252Faws$252Fcodebuild$252Fcoworking-analytics/log-events/1429d18e-a6aa-4ee1-b3b3-3396afb26b7d",
-                "cloudWatchLogsArn": "arn:aws:logs:us-west-2:835207447818:log-group:/aws/codebuild/coworking-analytics:log-stream:1429d18e-a6aa-4ee1-b3b3-3396afb26b7d"
+                "streamName": "33436dc0-e9c6-45d1-b7f5-63e6310004dd",
+                "deepLink": "https://console.aws.amazon.com/cloudwatch/home?region=us-west-2#logsV2:log-groups/log-group/$252Faws$252Fcodebuild$252Fcoworking-analytics/log-events/33436dc0-e9c6-45d1-b7f5-63e6310004dd",
+                "cloudWatchLogsArn": "arn:aws:logs:us-west-2:224429379372:log-group:/aws/codebuild/coworking-analytics:log-stream:33436dc0-e9c6-45d1-b7f5-63e6310004dd"
             },
             "timeoutInMinutes": 60,
             "queuedTimeoutInMinutes": 480,
             "buildComplete": true,
-            "initiator": "voclabs/user5028670=8899cadc-906c-11ec-9dc8-4325ba25866a",
-            "encryptionKey": "arn:aws:kms:us-west-2:835207447818:alias/aws/s3"
+            "initiator": "GitHub-Hookshot/e5e15fa",
+            "encryptionKey": "arn:aws:kms:us-west-2:224429379372:alias/aws/s3"
         }
     ],
     "buildsNotFound": []

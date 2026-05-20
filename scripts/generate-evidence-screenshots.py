@@ -126,7 +126,11 @@ def cloudwatch() -> None:
     rows = []
     if logs_path.exists():
         logs = json.loads(logs_path.read_text())
-        log_group = logs.get("searchedLogStreams", [{}])[0].get("logGroupName", log_group)
+        streams = logs.get("searchedLogStreams") or []
+        if streams:
+            log_group = streams[0].get("logGroupName", log_group)
+        elif logs.get("events"):
+            log_group = "/aws/containerinsights/coworking-cluster/application"
         for event in logs.get("events", [])[:8]:
             message = event.get("message", "").replace("\n", " ")
             rows.append([event.get("logStreamName", ""), message[:95], "application"])
